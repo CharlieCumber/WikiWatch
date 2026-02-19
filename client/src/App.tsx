@@ -102,20 +102,20 @@ const App = (): JSX.Element => {
               falseColour={colours.primary}
             />
             <ChangeDeltaTimeline data={stats.changeDelta}/>
-            {stats.topCountries && (
+            {stats.topCountries && Object.keys(stats.topCountries).length > 0 && (
               <BarChart
                 title="Edit count by country"
-                legend="Only anonymous users included"
+                legend="Only anonymous edits are included, which are approx 15% of all edits"
                 data={stats.topCountries}
                 columns={3}
                 rows={4}
                 colour={colours.orange}
               />
             )}
-            {stats.topCities && (
+            {stats.topCities && Object.keys(stats.topCities).length > 0 && (
               <BarChart
                 title="Edit count by city"
-                legend="Only anonymous users included"
+                legend="Only anonymous edits are included, which are approx 15% of all edits"
                 data={stats.topCities}
                 columns={3}
                 rows={4}

@@ -57,13 +57,26 @@ def calculate_stats() -> dict:
     data = load_data()
     current_time = get_current_time_whole_minutes()
 
+    top_countries = (
+        data[data["is_anon"] == True]["country"]
+        .value_counts(dropna=True)
+        .head(10)
+        .to_dict()
+    )
+    top_cities = (
+        data[data["is_anon"] == True]["city"]
+        .value_counts(dropna=True)
+        .head(10)
+        .to_dict()
+    )
+
     return {
         "firstEdit": str(data["created"].min()),
         "lastEdit": str(data["created"].max()),
         "editCount": len(data.index),
         "uniqueUsers": len(data["user"].value_counts()),
-        "topCountries": data["country"].value_counts(dropna=True).head(10).to_dict(),
-        "topCities": data["city"].value_counts(dropna=True).head(10).to_dict(),
+        "topCountries": top_countries,
+        "topCities": top_cities,
         "anonymous": count_true_and_false(data["is_anon"]),
         "bots": count_true_and_false(data["is_bot"]),
         "minorEdits": count_true_and_false(data["is_minor"]),
