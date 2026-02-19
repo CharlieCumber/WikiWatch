@@ -6,8 +6,10 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Legend as RechartsLegend,
 } from 'recharts';
 import colours from '../../helpers/colours';
+import numberFormatter from '../../helpers/numberFormatter';
 import { WikiStatistics } from '../../helpers/statistics';
 import useRenderedColumnsWidth from '../../helpers/useRenderedColumnsWidth';
 import Card from '../Card';
@@ -18,43 +20,51 @@ type ChangeDeltaTimelineProps = {
   data: WikiStatistics["changeDelta"]
 };
 
-const YAXIS_CHART_PADDING = 10000;
+const formatAxisTick = (value: number): string => numberFormatter(value, 0);
 
 const ChangeDeltaTimeline = (props: ChangeDeltaTimelineProps): JSX.Element => {
   const { data } = props;
   const columns = 6;
-  const contentWidth = useRenderedColumnsWidth(columns)
+  const contentWidth = useRenderedColumnsWidth(columns);
 
   return (
     <Card columns={columns} rows={4}>
       <Title>Recent Changes (last 20 minutes)</Title>
-      <LineChart width={(contentWidth - 20)} height={400} data={data}>
+      <LineChart width={(contentWidth - 20)} height={370} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           allowDataOverflow
           dataKey="label"
           type="category"
-          interval={1}
-          tickMargin={5}
+          interval={4}
+          tickMargin={3}
         />
         <YAxis
           yAxisId="1"
           allowDataOverflow
+          allowDecimals={false}
           type="number"
-          domain={[`dataMin - ${YAXIS_CHART_PADDING}`, `dataMax + ${YAXIS_CHART_PADDING}`]}
+          domain={['auto', 'auto']}
+          tickFormatter={formatAxisTick}
+          label={{ value: 'Chars/min', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
         />
         <YAxis
           yAxisId="2"
           orientation="right"
-          domain={[`dataMin - ${YAXIS_CHART_PADDING}`, `dataMax + ${YAXIS_CHART_PADDING}`]}
+          allowDecimals={false}
           allowDataOverflow
           type="number"
+          domain={['auto', 'auto']}
+          tickFormatter={formatAxisTick}
+          label={{ value: 'Total chars', angle: 90, position: 'insideRight', style: { textAnchor: 'middle' } }}
         />
-        <Tooltip />
+        <Tooltip formatter={(value) => typeof value === 'number' ? numberFormatter(value, 0) : value} />
+        <RechartsLegend verticalAlign="top" />
         <Line
           yAxisId="1"
           type="natural"
           dataKey="charactersChangedThisMinute"
+          name="Change delta (chars/min)"
           stroke={colours.red}
           animationDuration={300}
         />
@@ -62,14 +72,14 @@ const ChangeDeltaTimeline = (props: ChangeDeltaTimelineProps): JSX.Element => {
           yAxisId="2"
           type="natural"
           dataKey="totalCharactersChanged"
+          name="Cumulative total (chars)"
           stroke={colours.teal}
           animationDuration={300}
         />
       </LineChart>
       <Legend>
-        A maximum of 20 samples are presented for the past 20 minutes. Change diff (page lines
-        changed) is sampled on a minute-by-minute basis, and associated with the left Y axis.
-        The right side Y axis covers the running total of all edit events recorded.
+        Up to 20 data points are shown for the past 20 minutes, sampled once per minute.
+        The left axis tracks the character change delta per minute; the right axis tracks the cumulative total of all character changes recorded.
       </Legend>
     </Card>
   );
