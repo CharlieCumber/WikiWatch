@@ -19,7 +19,7 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
-    socketio.init_app(app)
+    socketio.init_app(app, cors_allowed_origins="http://localhost:3000")
 
     wiki_listener = WikiListener(app)
 
