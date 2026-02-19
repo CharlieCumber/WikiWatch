@@ -14,27 +14,28 @@ import colours from './helpers/colours';
 import numberFormatter from './helpers/numberFormatter';
 import formatDateTime from './helpers/formatDateTime';
 import { WikiStatistics } from './helpers/statistics';
+import useDebouncedState from './helpers/useDebouncedState';
 import socket from 'socket.io-client';
 
 const App = (): JSX.Element => {
   const [connected, setConnected] = useState(false);
-  const [stats, setStats] = useState<WikiStatistics | undefined>(undefined);
+  const [stats, setStats] = useDebouncedState<WikiStatistics | undefined>(undefined, 2000);
 
   useEffect(() => {
     const client = socket();
     client.on('connect', () => {
       setConnected(true);
-    })
+    });
     client.on('disconnect', () => {
       setConnected(false);
     });
-    client.on('stats', message => {
-      setStats(message.data)
+    client.on('stats', (message: { data: WikiStatistics }) => {
+      setStats(message.data);
     });
     return () => {
-      client.removeAllListeners()
-    }
-  }, [setConnected, setStats]);
+      client.removeAllListeners();
+    };
+  }, []);
 
   return (
     <Page>
