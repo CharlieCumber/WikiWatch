@@ -70,9 +70,7 @@ describe('useDebouncedState', () => {
   });
 
   it('works with object values', () => {
-    const { result } = renderHook(() =>
-      useDebouncedState<{ count: number } | null>(null, 500)
-    );
+    const { result } = renderHook(() => useDebouncedState<{ count: number } | null>(null, 500));
 
     act(() => {
       result.current[1]({ count: 42 });

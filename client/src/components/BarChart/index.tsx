@@ -1,4 +1,12 @@
-import { Bar, BarChart as LibBarChart, CartesianGrid, Rectangle, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Bar,
+  BarChart as LibBarChart,
+  CartesianGrid,
+  Rectangle,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import colours, { HexColourCode } from '../../helpers/colours';
 import { contentHeightPxForRows } from '../../helpers/gridSizes';
 import useRenderedColumnsWidth from '../../helpers/useRenderedColumnsWidth';
@@ -7,20 +15,20 @@ import Legend from '../Legend';
 import Title from '../Title';
 
 type BarChartProps = {
-  title?: string
-  legend?: string
-  columns: number
-  rows: number
-  colour: HexColourCode
+  title?: string;
+  legend?: string;
+  columns: number;
+  rows: number;
+  colour: HexColourCode;
   data: {
-    [name: string]: number
-  }
-}
+    [name: string]: number;
+  };
+};
 
 const BarChart = (props: BarChartProps): JSX.Element => {
   const { title, legend, colour, columns, rows, data } = props;
 
-  const contentWidth = useRenderedColumnsWidth(columns)
+  const contentWidth = useRenderedColumnsWidth(columns);
 
   const dataList = Object.keys(data).map((key) => ({
     name: key,
@@ -33,9 +41,7 @@ const BarChart = (props: BarChartProps): JSX.Element => {
 
   return (
     <Card columns={columns} rows={rows}>
-      {title && (
-        <Title>{title}</Title>
-      )}
+      {title && <Title>{title}</Title>}
       <LibBarChart
         width={graphWidth}
         height={graphHeight}
@@ -47,11 +53,7 @@ const BarChart = (props: BarChartProps): JSX.Element => {
           top: 20,
         }}
       >
-        <CartesianGrid
-          horizontal={false}
-          stroke={colours.grey}
-          strokeWidth={0.5}
-        />
+        <CartesianGrid horizontal={false} stroke={colours.grey} strokeWidth={0.5} />
         <XAxis
           type="number"
           orientation="top"
@@ -59,24 +61,16 @@ const BarChart = (props: BarChartProps): JSX.Element => {
           stroke={colours.grey}
           strokeWidth={0.5}
         />
-        <YAxis
-          type="category"
-          dataKey="name"
-          width={yAxisLabelWidth}
-        />
+        <YAxis type="category" dataKey="name" width={yAxisLabelWidth} />
         <Tooltip />
         <Bar
           dataKey="count"
           animationDuration={1000}
           fill={colour}
-          shape={<Rectangle
-            radius={[0, 20, 20, 0]}
-          />}
+          shape={<Rectangle radius={[0, 20, 20, 0]} />}
         />
       </LibBarChart>
-      {legend && (
-        <Legend>{legend}</Legend>
-      )}
+      {legend && <Legend>{legend}</Legend>}
     </Card>
   );
 };

@@ -1,7 +1,7 @@
 export type HexColourCode = `#${string}`;
 
 type Colours = {
-  [name: string]: HexColourCode
+  [name: string]: HexColourCode;
 };
 
 const colours: Colours = {

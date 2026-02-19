@@ -10,16 +10,22 @@ export const gutterWidthPx = 10;
 
 export const gutterWidth = appendPx(gutterWidthPx);
 
-export const minScreenWidthPxForColumns = (columns: number): number => (gutterWidthPx * (columns + 1)) + (columns * columnWidthPx);
+export const minScreenWidthPxForColumns = (columns: number): number =>
+  gutterWidthPx * (columns + 1) + columns * columnWidthPx;
 
-export const minScreenWidthForColumns = (columns: number): Pixels => appendPx(minScreenWidthPxForColumns(columns));
+export const minScreenWidthForColumns = (columns: number): Pixels =>
+  appendPx(minScreenWidthPxForColumns(columns));
 
-export const contentWidthPxForColumns = (columns: number): number => (gutterWidthPx * (columns - 1)) + (columns * columnWidthPx);
+export const contentWidthPxForColumns = (columns: number): number =>
+  gutterWidthPx * (columns - 1) + columns * columnWidthPx;
 
-export const contentWidthForColumns = (columns: number): Pixels => appendPx(contentWidthPxForColumns(columns));
+export const contentWidthForColumns = (columns: number): Pixels =>
+  appendPx(contentWidthPxForColumns(columns));
 
 const rowHeightPx = 150;
 
-export const contentHeightPxForRows = (rows: number): number => (gutterWidthPx * (rows - 1)) + (rows * rowHeightPx);
+export const contentHeightPxForRows = (rows: number): number =>
+  gutterWidthPx * (rows - 1) + rows * rowHeightPx;
 
-export const contentHeightForRows = (rows: number): Pixels => appendPx(contentHeightPxForRows(rows));
+export const contentHeightForRows = (rows: number): Pixels =>
+  appendPx(contentHeightPxForRows(rows));

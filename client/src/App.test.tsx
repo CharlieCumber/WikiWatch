@@ -18,9 +18,13 @@ const mockStats: WikiStatistics = {
   changeDelta: [],
 };
 
-const socketListeners = vi.hoisted(() => ({} as Record<string, Function>));
+const socketListeners = vi.hoisted(
+  () => ({}) as Record<string, (...args: unknown[]) => void>,
+);
 const mockSocket = vi.hoisted(() => ({
-  on: vi.fn((event: string, cb: Function) => { socketListeners[event] = cb; }),
+  on: vi.fn((event: string, cb: (...args: unknown[]) => void) => {
+    socketListeners[event] = cb;
+  }),
   removeAllListeners: vi.fn(),
 }));
 
@@ -42,7 +46,7 @@ vi.mock('./components/ChangeDeltaTimeline', () => ({
 
 describe('App', () => {
   beforeEach(() => {
-    Object.keys(socketListeners).forEach(key => delete socketListeners[key]);
+    Object.keys(socketListeners).forEach((key) => delete socketListeners[key]);
     mockSocket.on.mockClear();
     mockSocket.removeAllListeners.mockClear();
   });

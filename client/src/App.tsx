@@ -39,7 +39,7 @@ const App = (): JSX.Element => {
 
   return (
     <Page>
-      <GlobalStyle/>
+      <GlobalStyle />
       <Header>WikiWatch | Edit Observer</Header>
       <Content>
         {connected && stats ? (
@@ -103,7 +103,7 @@ const App = (): JSX.Element => {
               falseLabel="Patrolled"
               falseColour={colours.primary}
             />
-            <ChangeDeltaTimeline data={stats.changeDelta}/>
+            <ChangeDeltaTimeline data={stats.changeDelta} />
             {stats.topCountries && Object.keys(stats.topCountries).length > 0 && (
               <BarChart
                 title="Edit count by country"
@@ -131,6 +131,6 @@ const App = (): JSX.Element => {
       </Content>
     </Page>
   );
-}
+};
 
 export default App;

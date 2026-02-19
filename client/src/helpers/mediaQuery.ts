@@ -1,9 +1,4 @@
-import {
-  DefaultTheme,
-  Interpolation,
-  ThemeProps,
-  css,
-} from 'styled-components';
+import { DefaultTheme, Interpolation, ThemeProps, css } from 'styled-components';
 import { minScreenWidthPxForColumns } from './gridSizes';
 
 export const breakpoints = {
@@ -21,11 +16,13 @@ export type MinWidthQuery = <P extends ThemeProps<DefaultTheme>>(
   ...interpolations: Interpolation<P>[]
 ) => Interpolation<P>;
 
-export const minWidthQuery: (width: number) => MinWidthQuery = (width) => (strings, ...interpolations) => css`
-  @media (min-width: ${width}px) {
-    ${css(strings, ...interpolations)}
-  }
-`;
+export const minWidthQuery: (width: number) => MinWidthQuery =
+  (width) =>
+  (strings, ...interpolations) => css`
+    @media (min-width: ${width}px) {
+      ${css(strings, ...interpolations)}
+    }
+  `;
 
 export const mediaQuery = Object.fromEntries(
   Object.entries(breakpoints).map(([breakpoint, value]) => [

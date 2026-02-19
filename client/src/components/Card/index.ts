@@ -4,14 +4,14 @@ import { contentHeightForRows } from '../../helpers/gridSizes';
 import { mediaQuery } from '../../helpers/mediaQuery';
 
 type CardStyleProps = {
-  columns: number
-  rows: number
+  columns: number;
+  rows: number;
 };
 
 const maxColumns = (props: CardStyleProps, max: number): number => {
   const { columns } = props;
   return columns <= max ? columns : max;
-}
+};
 
 const Card = styled.div<CardStyleProps>`
   display: flex;
@@ -22,10 +22,10 @@ const Card = styled.div<CardStyleProps>`
   border-radius: 5px;
   padding: 10px;
   text-align: center;
-  
+
   height: ${({ rows }) => contentHeightForRows(rows)};
 
-  grid-row: span ${({ rows }) => rows };
+  grid-row: span ${({ rows }) => rows};
   grid-column: span ${(props) => maxColumns(props, 2)};
 
   ${mediaQuery.fourColumns`
