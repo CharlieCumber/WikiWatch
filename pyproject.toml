@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Charlie Cumber <chukc@hotmail.co.uk>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -16,6 +17,7 @@ websockets = "^11.0.2"
 pytz = "^2023.3"
 flask-socketio = "^5.3.3"
 pandas = "^2.0.1"
+mysqlclient = ">=2.2"
 
 
 [build-system]

@@ -2,76 +2,36 @@
 
 An application to visualise recent edits made to Wikipedia pages.
 
-## System Requirements
+## Getting started
 
-This project uses poetry for Python to create an isolated environment and manage package dependencies. It also uses
-docker for running the local database.
-- [Python 3.10](https://www.python.org/)
-- [Poetry](https://python-poetry.org/docs/)
-- [Docker](https://docs.docker.com/desktop/install/windows-install/)
-- [Node.js](https://nodejs.org/en)
+### Prerequisites
 
-### Dependencies
+Install the following before running the setup script:
 
-#### Backend
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) — runs the local database
+- [Python 3.10+](https://www.python.org/)
+- [Poetry](https://python-poetry.org/docs/) — manages Python dependencies
+- [Node.js](https://nodejs.org/en) — runs the frontend
+- [mysql-client](https://formulae.brew.sh/formula/mysql-client) — required by the Python database driver
 
-The backend uses a virtual environment to isolate package dependencies. To create the virtual environment and install 
-required packages, run the following from your preferred shell:
+  ```bash
+  brew install mysql-client
+  ```
 
-```bash
-poetry install
-```
+### First-time setup
 
-#### Frontend
-
-The frontend client requires node modules to be installed:
+Run the setup script once after cloning the repository:
 
 ```bash
-$ cd client
-$ npm install
+./setup.sh
 ```
 
-### Local environment variables
+This will install all dependencies, create your `.env` file, start the database container, and run migrations.
 
-You'll also need to clone a new `.env` file from the `.env.template` to store local configuration options. This is a
-one-time operation on first setup:
+### Running locally
 
 ```bash
-$ cp .env.template .env
+./run.sh
 ```
 
-### Local database
-
-To run the local database use docker, running the following start command:
-
-```bash
-docker-compose -f .\docker-compose-database.yml up
-```
-
-To initialise the database tables run:
-
-```bash
-poetry run flask db upgrade
-```
-
-## Running locally
-
-### Backend
-
-Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by
-running the following from the project root:
-
-```bash
-$ poetry run flask run
-```
-
-### Frontend
-
-Once the backend is running, in a new terminal start the frontend client:
-
-```bash
-$ cd client
-$ npm start
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This starts the database, backend, and frontend in one command. Open [http://localhost:3000](http://localhost:3000) to view the app. Press `Ctrl+C` to stop everything.
