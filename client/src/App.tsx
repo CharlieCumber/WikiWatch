@@ -38,7 +38,7 @@ const App = (): JSX.Element => {
   return (
     <Page>
       <GlobalStyle/>
-      <Header>WikiWatch</Header>
+      <Header>WikiWatch | Edit Observer</Header>
       <Content>
         {connected && stats ? (
           <Grid>
