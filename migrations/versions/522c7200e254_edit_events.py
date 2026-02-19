@@ -1,10 +1,11 @@
 """edit events
 
 Revision ID: 522c7200e254
-Revises: 
+Revises:
 Create Date: 2023-05-01 16:04:04.715035
 
 """
+
 from alembic import op
 import sqlalchemy as sa
 
@@ -30,7 +31,7 @@ def upgrade():
         sa.Column("city", sa.String(length=300), nullable=True),
         sa.Column("country", sa.String(length=300), nullable=True),
         sa.Column("region", sa.String(length=300), nullable=True),
-        sa.PrimaryKeyConstraint("id")
+        sa.PrimaryKeyConstraint("id"),
     )
 
 

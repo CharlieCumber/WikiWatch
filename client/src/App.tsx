@@ -79,7 +79,7 @@ const App = (): JSX.Element => {
             <BooleanPieChart
               title="Edits by size"
               legend="Users responds as to if they think their edit is minor and can skip review"
-              data={stats.minor}
+              data={stats.minorEdits}
               trueLabel="Minor"
               trueColour={colours.black}
               falseLabel="Requires review"
@@ -87,7 +87,7 @@ const App = (): JSX.Element => {
             />
             <BooleanPieChart
               title="Edits by page age"
-              data={stats.new}
+              data={stats.newPageEdits}
               trueLabel="New"
               trueColour={colours.black}
               falseLabel="Existing"
@@ -95,7 +95,7 @@ const App = (): JSX.Element => {
             />
             <BooleanPieChart
               title="Edits by patrolled page"
-              data={stats.unpatrolled}
+              data={stats.unreviewedEdits}
               trueLabel="Not patrolled"
               trueColour={colours.black}
               falseLabel="Patrolled"

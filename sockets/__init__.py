@@ -8,7 +8,6 @@ socketio = SocketIO()
 
 
 def broadcast_stats():
-    socketio.emit('stats', {
-        "time": datetime.now().isoformat(),
-        "data": calculate_stats()
-    })
+    socketio.emit(
+        "stats", {"time": datetime.now().isoformat(), "data": calculate_stats()}
+    )

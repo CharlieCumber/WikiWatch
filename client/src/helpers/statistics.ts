@@ -1,6 +1,6 @@
 export type BooleanCount = {
-  0?: number
-  1?: number
+  yes?: number
+  no?: number
 }
 
 export type WikiStatistics = {
@@ -16,13 +16,13 @@ export type WikiStatistics = {
   }
   anonymous: BooleanCount
   bots: BooleanCount
-  minor: BooleanCount
-  new: BooleanCount
-  unpatrolled: BooleanCount
+  minorEdits: BooleanCount
+  newPageEdits: BooleanCount
+  unreviewedEdits: BooleanCount
   changeDelta: {
     label: string
     timestamp: number
-    diff: number
-    runningTotal: number
+    charactersChangedThisMinute: number
+    totalCharactersChanged: number
   }[]
 };

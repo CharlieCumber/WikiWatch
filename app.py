@@ -8,6 +8,11 @@ from services.wiki_listener import WikiListener
 from sockets import socketio
 
 
+def _is_primary_process(debug: bool) -> bool:
+    in_development = debug or environ.get("FLASK_ENV") == "development"
+    return not in_development or environ.get("WERKZEUG_RUN_MAIN") == "true"
+
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(FlaskConfig())
@@ -18,11 +23,7 @@ def create_app():
 
     wiki_listener = WikiListener(app)
 
-    # Without this condition, local running with hot reloading will duplicate the thread
-    if (
-        not (app.debug or environ.get("FLASK_ENV") == "development")
-        or environ.get("WERKZEUG_RUN_MAIN") == "true"
-    ):
+    if _is_primary_process(app.debug):
         wiki_listener.start()
 
     if __name__ == "__main__":

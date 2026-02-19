@@ -5,23 +5,22 @@ from helpers.exceptions import UnexpectedActionException
 from helpers.time_zones import datetime_to_utc
 from models import db
 
-
-MaxLength = 300
+STRING_FIELD_MAX_LENGTH = 300
 
 
 class EditEvent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    page_title = db.Column(db.String(MaxLength))
-    change_size = db.Column(db.Integer)
-    is_anon = db.Column(db.Boolean)
+    page_title = db.Column(db.String(STRING_FIELD_MAX_LENGTH))
+    characters_changed = db.Column("change_size", db.Integer)
+    is_anonymous = db.Column("is_anon", db.Boolean)
     is_bot = db.Column(db.Boolean)
-    is_minor = db.Column(db.Boolean)
-    is_new = db.Column(db.Boolean)
-    is_unpatrolled = db.Column(db.Boolean)
-    user = db.Column(db.String(MaxLength))
-    city = db.Column(db.String(MaxLength))
-    country = db.Column(db.String(MaxLength))
-    region = db.Column(db.String(MaxLength))
+    is_minor_edit = db.Column("is_minor", db.Boolean)
+    is_new_page = db.Column("is_new", db.Boolean)
+    is_unreviewed = db.Column("is_unpatrolled", db.Boolean)
+    editor_username = db.Column("user", db.String(STRING_FIELD_MAX_LENGTH))
+    city = db.Column(db.String(STRING_FIELD_MAX_LENGTH))
+    country = db.Column(db.String(STRING_FIELD_MAX_LENGTH))
+    region = db.Column(db.String(STRING_FIELD_MAX_LENGTH))
     created = db.Column(db.DateTime(timezone=True))
 
     @classmethod
@@ -36,13 +35,13 @@ class EditEvent(db.Model):
 
         return cls(
             page_title=message.get("page_title"),
-            change_size=message.get("change_size"),
-            is_anon=message.get("is_anon"),
+            characters_changed=message.get("change_size"),
+            is_anonymous=message.get("is_anon"),
             is_bot=message.get("is_bot"),
-            is_new=message.get("is_new"),
-            is_minor=message.get("is_minor"),
-            is_unpatrolled=message.get("is_unpatrolled"),
-            user=message.get("user"),
+            is_new_page=message.get("is_new"),
+            is_minor_edit=message.get("is_minor"),
+            is_unreviewed=message.get("is_unpatrolled"),
+            editor_username=message.get("user"),
             city=geo_data.get("city") if geo_data else None,
             country=geo_data.get("country_name") if geo_data else None,
             region=geo_data.get("region_name") if geo_data else None,

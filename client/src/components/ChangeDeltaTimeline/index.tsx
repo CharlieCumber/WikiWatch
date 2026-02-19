@@ -18,6 +18,8 @@ type ChangeDeltaTimelineProps = {
   data: WikiStatistics["changeDelta"]
 };
 
+const YAXIS_CHART_PADDING = 10000;
+
 const ChangeDeltaTimeline = (props: ChangeDeltaTimelineProps): JSX.Element => {
   const { data } = props;
   const columns = 6;
@@ -25,7 +27,7 @@ const ChangeDeltaTimeline = (props: ChangeDeltaTimelineProps): JSX.Element => {
 
   return (
     <Card columns={columns} rows={4}>
-      <Title>Change over the last 20 minutes</Title>
+      <Title>Recent Changes (last 20 minutes)</Title>
       <LineChart width={(contentWidth - 20)} height={400} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
@@ -39,12 +41,12 @@ const ChangeDeltaTimeline = (props: ChangeDeltaTimelineProps): JSX.Element => {
           yAxisId="1"
           allowDataOverflow
           type="number"
-          domain={['dataMin - 10000', 'dataMax + 10000']}
+          domain={[`dataMin - ${YAXIS_CHART_PADDING}`, `dataMax + ${YAXIS_CHART_PADDING}`]}
         />
         <YAxis
           yAxisId="2"
           orientation="right"
-          domain={['dataMin - 10000', 'dataMax + 10000']}
+          domain={[`dataMin - ${YAXIS_CHART_PADDING}`, `dataMax + ${YAXIS_CHART_PADDING}`]}
           allowDataOverflow
           type="number"
         />
@@ -52,14 +54,14 @@ const ChangeDeltaTimeline = (props: ChangeDeltaTimelineProps): JSX.Element => {
         <Line
           yAxisId="1"
           type="natural"
-          dataKey="diff"
+          dataKey="charactersChangedThisMinute"
           stroke={colours.red}
           animationDuration={300}
         />
         <Line
           yAxisId="2"
           type="natural"
-          dataKey="runningTotal"
+          dataKey="totalCharactersChanged"
           stroke={colours.teal}
           animationDuration={300}
         />

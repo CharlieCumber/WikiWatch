@@ -27,10 +27,10 @@ const BooleanPieChart = (props: PieChartProps): JSX.Element => {
 
   const pieData = [{
     name: trueLabel,
-    value: data['1'] ?? 0
+    value: data.yes ?? 0
   },{
     name: falseLabel,
-    value: data['0'] ?? 0
+    value: data.no ?? 0
   }]
 
   return (

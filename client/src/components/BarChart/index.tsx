@@ -1,9 +1,6 @@
 import { Bar, BarChart as LibBarChart, CartesianGrid, Rectangle, Tooltip, XAxis, YAxis } from 'recharts';
 import colours, { HexColourCode } from '../../helpers/colours';
-import {
-  contentHeightPxForRows,
-  contentWidthPxForColumns
-} from '../../helpers/gridSizes';
+import { contentHeightPxForRows } from '../../helpers/gridSizes';
 import useRenderedColumnsWidth from '../../helpers/useRenderedColumnsWidth';
 import Card from '../Card';
 import Legend from '../Legend';
