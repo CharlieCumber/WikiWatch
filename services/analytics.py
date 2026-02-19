@@ -71,8 +71,8 @@ def calculate_stats() -> dict:
     )
 
     return {
-        "firstEdit": str(data["created"].min()),
-        "lastEdit": str(data["created"].max()),
+        "firstEdit": data["created"].min().isoformat(),
+        "lastEdit": data["created"].max().isoformat(),
         "editCount": len(data.index),
         "uniqueUsers": len(data["user"].value_counts()),
         "topCountries": top_countries,

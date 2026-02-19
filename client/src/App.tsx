@@ -12,6 +12,7 @@ import Content from './components/Content';
 import Title from './components/Title';
 import colours from './helpers/colours';
 import numberFormatter from './helpers/numberFormatter';
+import formatDateTime from './helpers/formatDateTime';
 import { WikiStatistics } from './helpers/statistics';
 import socket from 'socket.io-client';
 
@@ -45,11 +46,11 @@ const App = (): JSX.Element => {
             <SmallGrid>
               <Card columns={1} rows={1}>
                 <Title>First</Title>
-                <Legend>{stats.firstEdit}</Legend>
+                <Legend>{formatDateTime(stats.firstEdit)}</Legend>
               </Card>
               <Card columns={1} rows={1}>
                 <Title>Last</Title>
-                <Legend>{stats.lastEdit}</Legend>
+                <Legend>{formatDateTime(stats.lastEdit)}</Legend>
               </Card>
               <Card columns={1} rows={1}>
                 <Title>{numberFormatter(stats.editCount, 2)}</Title>
